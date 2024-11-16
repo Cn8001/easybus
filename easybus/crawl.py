@@ -66,9 +66,11 @@ class WebData(object):
         try:
             soup = BeautifulSoup(response,'html.parser')
 
-            journeybase = soup.find_all('div',{'class':'prov-3'})
-            for journey in journeys:
-                busList.append(journey) 
+            journeys = soup.find_all('div',{'class':'prov-3'})
+
+            for bus in journeys:
+
+                image_element = bus.find('image')
         except ValueError:
             pass
         return busList
