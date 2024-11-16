@@ -1,3 +1,4 @@
+from datetime import date
 class BusJourney(object):
     """
     BusJourney base class
@@ -8,6 +9,13 @@ class BusJourney(object):
     :param seat_type: Seat type of the bus (2+1 / 2+2)
     :param hour: Departure time
     """
+
+    name = str
+    price = float
+    route = str
+    duration = int
+    seat_type = str
+    hour = date
 
     def __init__(self,name,price,route,duration,seat_type,hour):
 

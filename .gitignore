@@ -4,3 +4,4 @@ Makefile
 doc/source
 geckodriver.exe
 __pycache__
+.pytest_cache

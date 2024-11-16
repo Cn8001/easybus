@@ -20,8 +20,6 @@ class WebData(object):
         self.to_city = to_city
         self.date = date
         self.url = f"https://www.enuygun.com/otobus-bileti/arama/{from_city}-{to_city}/?gidis={date}"
-        self.headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0',
-                        'Accept-Language': 'en-US, en;q=0.5'}
     
     def _get_page_source(self):
         """
