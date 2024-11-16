@@ -67,10 +67,22 @@ class WebData(object):
             soup = BeautifulSoup(response,'html.parser')
 
             journeys = soup.find_all('div',{'class':'prov-3'})
-
+            
             for bus in journeys:
+                hour = bus.find('div',{'class':'hour-text'})
+                price = bus.find('strong',{'class':'priceFractionDigitsContainer'})
+                route = bus.find('span',{'class':'journey-route align-center'})
+                time = bus.find('div',{'class':'journey-time-diff align-center'})
+                seat_type = bus.find('div',{'class':'bus-seat-type align-center'})
+                img_alt = bus.find('div',{'class':'company-image-container'}).find('img').get('alt') #Extract name
 
-                image_element = bus.find('image')
+                print(hour.text)
+                print(price.text)
+                print(route.text)
+                print(seat_type.text)
+                print(time.text)
+                print(img_alt)
+
         except ValueError:
             pass
         return busList
