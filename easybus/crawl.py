@@ -6,6 +6,8 @@ import pathlib
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from models.BusJourney import BusJourney
+import datetime
 
 class WebData(object):
     """
@@ -57,32 +59,42 @@ class WebData(object):
         if not pathlib.Path('../tools/geckodriver.exe').exists():
             gecko.install(output_path="../tools")
 
-    def get_data(self):
+    def _generate_value(self,name,hour,price : str,route,duration : str,seat_type):
+        """
+        Generates BusJourney objects based on scraped values
+        """
+        hour = datetime.time.fromisoformat(hour)
+        price = float(price.rstrip(" TL").strip().replace(',','.'))
+        durationL = duration.strip().split(" ")
 
+        #Calculate duration via hour*60+minutes
+        duration = int(duration[0])*60
+        if len(durationL) > 2:
+            duration += int(durationL[2])
+        return BusJourney(name,price,route,duration,seat_type,hour)
+
+    def get_data(self):
+        """
+        Scraps the data with BeautifulSoup
+        :returns: BusJourney object list (Empty list on error)
+        """
         response = self._get_page_source()
         busList = []
         if not response:
             return busList
-        try:
-            soup = BeautifulSoup(response,'html.parser')
+        soup = BeautifulSoup(response,'html.parser')
 
-            journeys = soup.find_all('div',{'class':'prov-3'})
-            
-            for bus in journeys:
-                hour = bus.find('div',{'class':'hour-text'})
-                price = bus.find('strong',{'class':'priceFractionDigitsContainer'})
-                route = bus.find('span',{'class':'journey-route align-center'})
-                time = bus.find('div',{'class':'journey-time-diff align-center'})
-                seat_type = bus.find('div',{'class':'bus-seat-type align-center'})
-                img_alt = bus.find('div',{'class':'company-image-container'}).find('img').get('alt') #Extract name
+        journeys = soup.find_all('div',{'class':'prov-3'})
+        
+        for bus in journeys:
+            hour = bus.find('div',{'class':'hour-text'})
+            price = bus.find('strong',{'class':'priceFractionDigitsContainer'})
+            route = bus.find('span',{'class':'journey-route align-center'})
+            duration = bus.find('div',{'class':'journey-time-diff align-center'})
+            seat_type = bus.find('div',{'class':'bus-seat-type align-center'})
+            img_alt = bus.find('div',{'class':'company-image-container'}).find('img').get('alt') #Extract name
 
-                print(hour.text)
-                print(price.text)
-                print(route.text)
-                print(seat_type.text)
-                print(time.text)
-                print(img_alt)
-
-        except ValueError:
-            pass
+            journeyobj = self._generate_value(img_alt,hour.text,price.text,
+                                                route.text,duration.text,seat_type.text)
+            busList.append(journeyobj)
         return busList
