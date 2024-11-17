@@ -1,5 +1,6 @@
-from datetime import date
-class BusJourney(object):
+from datetime import datetime
+from pydantic import BaseModel
+class BusJourney(BaseModel):
     """
     BusJourney base class
     :param name: Bus company name
@@ -10,18 +11,9 @@ class BusJourney(object):
     :param hour: Departure time
     """
 
-    name = str
-    price = float
-    route = str
-    duration = int
-    seat_type = str
-    hour = date
-
-    def __init__(self,name,price,route,duration,seat_type,hour):
-
-        self.name = name
-        self.price = price
-        self.route = route
-        self.duration = duration
-        self.seat_type = seat_type
-        self.hour = hour
+    name: str
+    price: float
+    route: str
+    duration: int
+    seat_type: str
+    hour: datetime

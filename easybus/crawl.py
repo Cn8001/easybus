@@ -9,7 +9,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from models.BusJourney import BusJourney
 import datetime
 
-class WebData(object):
+class WebData:
     """
     Scrap data and find elements
 
@@ -61,7 +61,7 @@ class WebData(object):
         """
         Generates BusJourney objects based on scraped values
         """
-        hour = datetime.time.fromisoformat(hour)
+        hour = datetime.datetime.strptime(self.date + " " + hour.strip(),"%d.%m.%Y %H:%M")
         price = float(price.rstrip(" TL").strip().replace(',','.'))
         durationL = duration.strip().split(" ")
 
@@ -69,7 +69,7 @@ class WebData(object):
         duration = int(duration[0])*60
         if len(durationL) > 2:
             duration += int(durationL[2])
-        return BusJourney(name,price,route,duration,seat_type,hour)
+        return BusJourney(name=name,price=price,route=route,duration=duration,seat_type=seat_type,hour=hour)
 
     def get_data(self):
         """
