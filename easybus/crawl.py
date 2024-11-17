@@ -1,4 +1,5 @@
 from bs4 import BeautifulSoup
+import dateutil.tz
 from selenium.webdriver import FirefoxOptions
 from selenium.webdriver import Firefox
 from get_gecko_driver import GetGeckoDriver
@@ -8,6 +9,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from models.BusJourney import BusJourney
 import datetime
+import dateutil
 
 class WebData:
     """
@@ -61,12 +63,17 @@ class WebData:
         """
         Generates BusJourney objects based on scraped values
         """
-        hour = datetime.datetime.strptime(self.date + " " + hour.strip(),"%d.%m.%Y %H:%M")
+        
+        tz = dateutil.tz.gettz("Europe/Istanbul")
+        hour = datetime.datetime.strptime(self.date + " " + hour.strip(),"%d.%m.%Y %H:%M") #Generate datetime object
+        hour.replace(tzinfo=tz) #Replace tzdata with UTC+3
+
         price = float(price.rstrip(" TL").strip().replace(',','.'))
         durationL = duration.strip().split(" ")
 
         #Calculate duration via hour*60+minutes
         duration = int(duration[0])*60
+
         if len(durationL) > 2:
             duration += int(durationL[2])
         return BusJourney(name=name,price=price,route=route,duration=duration,seat_type=seat_type,hour=hour)
