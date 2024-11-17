@@ -8,6 +8,7 @@ app = FastAPI()
 async def get_journeys(from_city: str, to_city: str, date: str) -> list[BusJourney]:
     """
     Controller for journey crawling
+
     :param from_city: Departure city
     :param to_city: Where to go
     :param date: Date string formatted as d.M.Y

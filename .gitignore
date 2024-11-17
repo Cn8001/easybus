@@ -5,3 +5,10 @@ doc/source
 geckodriver.exe
 __pycache__
 .pytest_cache
+*.rst
+*.doctree
+*.pickle
+.doctrees/
+.buildinfo
+doc/build/_sources/
+index.rst.txt

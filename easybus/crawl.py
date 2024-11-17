@@ -26,6 +26,7 @@ class WebData:
     def _get_page_source(self):
         """
         Scraps the data according to self.url
+
         :returns: Page source, None if response is null.
         :raises: ConnectionError if server do not respond
         """
@@ -62,6 +63,7 @@ class WebData:
     def _generate_value(self,name,hour,price : str,route,duration : str,seat_type):
         """
         Generates BusJourney objects based on scraped values
+        Datetime timezone is Europe/Istanbul
         """
         
         tz = dateutil.tz.gettz("Europe/Istanbul")
@@ -81,6 +83,7 @@ class WebData:
     def get_data(self):
         """
         Scraps the data with BeautifulSoup
+        
         :returns: BusJourney object list (Empty list on error)
         """
         response = self._get_page_source()
