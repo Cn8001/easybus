@@ -7,5 +7,6 @@ Data Comes from Enuygun.com
 
 HOW TO RUN
 --------------------
-cd easybus/
+cd easybus/ 
+
 uvicorn main:app
