@@ -10,11 +10,17 @@ Data Comes from Enuygun.com
 
 HOW TO RUN
 --------------------
-cd easybus/ 
 
-uvicorn main:app
---------------------
+install with wheel
+
+pip install easybus-0.0.1-py3-none-any.whl
+
+easybus 
+
+
 *ENVIRONMENT*
+--------------------
+
 
 EASYBUS_HOST = ip address to serve
 EASYBUS_PORT = which port to use
