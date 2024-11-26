@@ -7,7 +7,9 @@ import pathlib
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from models.BusJourney import BusJourney
+
+import os,sys
+from easybus.models.BusJourney import BusJourney
 import datetime
 import dateutil
 
@@ -83,7 +85,7 @@ class WebData:
     def get_data(self):
         """
         Scraps the data with BeautifulSoup
-        
+
         :returns: BusJourney object list (Empty list on error)
         """
         response = self._get_page_source()

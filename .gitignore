@@ -12,3 +12,7 @@ __pycache__
 .buildinfo
 doc/build/_sources/
 index.rst.txt
+build/
+dist/
+easybus.egg-info/
+test/

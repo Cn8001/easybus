@@ -1,0 +1,13 @@
+CHANGES
+=======
+
+* Update README.md
+* Create README.md
+* Documentation
+* Dateutil timezone aware objects: Europe/Istanbul
+* Crawler strpdate used, model changed to pydantic and fastapi controller
+* Crawl is better
+* GetData returns BusJourney list
+* Crawl finished
+* Sphinx init
+* Crawl element found

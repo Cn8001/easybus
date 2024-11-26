@@ -1,6 +1,6 @@
 from fastapi import FastAPI
-from models.BusJourney import BusJourney
-import crawl
+from easybus.models.BusJourney import BusJourney
+from easybus import crawl
 
 app = FastAPI()
 
